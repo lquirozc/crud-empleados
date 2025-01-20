@@ -60,7 +60,7 @@ func (r *employeeRepository) Update(employee *models.Employee) (*models.Employee
 
 // Delete removes an employee from the database by their ID.
 func (r *employeeRepository) Delete(employeeID string) error {
-	if err := r.db.Delete(&models.Employee{}, "employee_id = ?", employeeID).Error; err != nil {
+	if err := r.db.Delete(&models.Employee{}, "employeeId = ?", employeeID).Error; err != nil {
 		return err
 	}
 	return nil

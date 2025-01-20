@@ -28,11 +28,7 @@ func (ctrl *EmployeeController) CreateEmployee(c *gin.Context) {
 	}
 
 	// Use the service to create the employee
-	createdEmployee, err := ctrl.service.CreateEmployee(&employee)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error creating employee"})
-		return
-	}
+	createdEmployee := ctrl.service.CreateEmployee(&employee)
 
 	c.JSON(http.StatusCreated, createdEmployee)
 }
@@ -42,11 +38,7 @@ func (ctrl *EmployeeController) GetEmployeeByID(c *gin.Context) {
 	employeeID := c.Param("id")
 
 	// Use the service to get the employee
-	employee, err := ctrl.service.GetEmployeeByID(employeeID)
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Employee not found"})
-		return
-	}
+	employee := ctrl.service.GetEmployeeByID(employeeID)
 
 	c.JSON(http.StatusOK, employee)
 }
@@ -54,11 +46,7 @@ func (ctrl *EmployeeController) GetEmployeeByID(c *gin.Context) {
 // GetAllEmployees retrieves all employees.
 func (ctrl *EmployeeController) GetAllEmployees(c *gin.Context) {
 	// Use the service to get all employees
-	employees, err := ctrl.service.GetAllEmployees()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error retrieving employees"})
-		return
-	}
+	employees := ctrl.service.GetAllEmployees()
 
 	c.JSON(http.StatusOK, employees)
 }
@@ -72,11 +60,7 @@ func (ctrl *EmployeeController) UpdateEmployee(c *gin.Context) {
 	}
 
 	// Use the service to update the employee
-	updatedEmployee, err := ctrl.service.UpdateEmployee(&employee)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error updating employee"})
-		return
-	}
+	updatedEmployee := ctrl.service.UpdateEmployee(&employee)
 
 	c.JSON(http.StatusOK, updatedEmployee)
 }
@@ -86,10 +70,7 @@ func (ctrl *EmployeeController) DeleteEmployee(c *gin.Context) {
 	employeeID := c.Param("id")
 
 	// Use the service to delete the employee
-	if err := ctrl.service.DeleteEmployee(employeeID); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error deleting employee"})
-		return
-	}
+	deletedEmployee := ctrl.service.DeleteEmployee(employeeID)
 
-	c.JSON(http.StatusOK, gin.H{"message": "Employee deleted successfully"})
+	c.JSON(http.StatusOK, deletedEmployee)
 }
